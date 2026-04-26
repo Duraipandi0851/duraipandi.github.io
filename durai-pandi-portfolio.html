@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durai Pandi C — Design Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1117;
+    --paper: #f8f5f0;
+    --accent: #c8440a;
+    --mid: #6b6b6b;
+    --rule: #d9d4cc;
+    --card: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+  }
+  .nav-inner {
+    max-width: 900px; margin: 0 auto;
+    padding: 0 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--mid);
+    font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  section { max-width: 900px; margin: 0 auto; padding: 64px 24px; }
+  section + section { border-top: 1px solid var(--rule); }
+
+  /* ── HERO ── */
+  #hero {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 48px; align-items: start;
+    padding-top: 80px; padding-bottom: 80px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05; letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-summary {
+    color: var(--mid); font-size: 16px;
+    max-width: 520px; margin-bottom: 32px;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 11px 24px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    text-decoration: none; border-radius: 4px; transition: all 0.2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #a33608; }
+  .btn-outline {
+    border: 1.5px solid var(--ink); color: var(--ink);
+    background: transparent;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+  .hero-badge {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 24px 20px;
+    text-align: center;
+    min-width: 160px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .badge-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 40px; color: var(--accent); line-height: 1;
+  }
+  .badge-label { font-size: 11px; color: var(--mid); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+  .badge-divider { width: 1px; height: 24px; background: var(--rule); margin: 16px auto; }
+
+  /* ── SECTION TITLES ── */
+  .sec-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px; margin-bottom: 36px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .sec-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--rule);
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media(max-width:640px) { .skills-grid { grid-template-columns: 1fr; } }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 20px;
+    transition: box-shadow 0.2s;
+  }
+  .skill-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .skill-card-icon { font-size: 22px; margin-bottom: 10px; }
+  .skill-card-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .skill-card-desc { font-size: 13px; color: var(--mid); }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 28px; }
+  .exp-item {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 24px;
+  }
+  @media(max-width:600px){ .exp-item { grid-template-columns: 1fr; gap: 8px; } }
+  .exp-date { font-size: 12px; color: var(--mid); font-weight: 500; padding-top: 3px; }
+  .exp-role { font-weight: 600; font-size: 15px; }
+  .exp-company { font-size: 13px; color: var(--accent); font-weight: 500; margin: 2px 0 10px; }
+  .exp-points { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .exp-points li { font-size: 13.5px; color: var(--mid); padding-left: 14px; position: relative; }
+  .exp-points li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-size: 11px; top: 2px;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .cert-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  @media(max-width:640px) { .cert-grid { grid-template-columns: 1fr; } }
+  .cert-card {
+    background: var(--card); border: 1px solid var(--rule);
+    border-radius: 6px; padding: 18px 20px;
+  }
+  .cert-badge {
+    display: inline-block; padding: 3px 10px;
+    background: #fdf0ea; color: var(--accent);
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    border-radius: 20px; margin-bottom: 10px;
+  }
+  .cert-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .cert-org { font-size: 12px; color: var(--mid); }
+
+  /* ── EDUCATION ── */
+  .edu-list { display: flex; flex-direction: column; gap: 20px; }
+  .edu-item {
+    display: grid; grid-template-columns: 140px 1fr; gap: 24px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--rule);
+  }
+  .edu-item:last-child { border-bottom: none; padding-bottom: 0; }
+  @media(max-width:600px){ .edu-item { grid-template-columns: 1fr; gap: 4px; } }
+  .edu-year { font-size: 12px; color: var(--mid); font-weight: 500; padding-top: 3px; }
+  .edu-degree { font-weight: 600; font-size: 15px; }
+  .edu-inst { font-size: 13px; color: var(--mid); margin: 3px 0; }
+  .edu-score { font-size: 12px; color: var(--accent); font-weight: 600; }
+
+  /* ── CONTACT ── */
+  #contact { padding-bottom: 80px; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  @media(max-width:600px){ .contact-grid { grid-template-columns: 1fr; } }
+  .contact-block h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin-bottom: 12px;
+  }
+  .contact-block p { color: var(--mid); font-size: 14px; margin-bottom: 20px; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: var(--ink); text-decoration: none;
+    padding: 10px 14px; background: var(--card);
+    border: 1px solid var(--rule); border-radius: 5px;
+    transition: border-color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-icon { width: 18px; text-align: center; font-size: 16px; }
+
+  .location-note {
+    background: #f0f7ff; border: 1px solid #c5daf5;
+    border-radius: 6px; padding: 16px 20px;
+    font-size: 13px; color: #2a5aa0;
+  }
+  .location-note strong { display: block; margin-bottom: 4px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 24px;
+    font-size: 12px; color: var(--mid);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .fade-up-d1 { animation-delay: 0.1s; opacity: 0; }
+  .fade-up-d2 { animation-delay: 0.2s; opacity: 0; }
+  .fade-up-d3 { animation-delay: 0.3s; opacity: 0; }
+  .fade-up-d4 { animation-delay: 0.4s; opacity: 0; }
+
+  /* Print / PDF friendly */
+  @media print {
+    nav, .hero-cta { display: none; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Durai<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div>
+    <p class="hero-eyebrow fade-up fade-up-d1">Design Engineer · Coimbatore, India</p>
+    <h1 class="fade-up fade-up-d2">Mechanical <em>Design</em><br>Engineer</h1>
+    <p class="hero-summary fade-up fade-up-d3">
+      4+ years across SPM design, SolidWorks 3D modelling, and shop-floor production.
+      CSWP certified. Open to opportunities in India, Germany & Netherlands.
+    </p>
+    <div class="hero-cta fade-up fade-up-d4">
+      <a href="mailto:duraipandi9699@gmail.com" class="btn btn-primary">Hire Me</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+  </div>
+  <div class="hero-badge fade-up fade-up-d3">
+    <div class="badge-num">4+</div>
+    <div class="badge-label">Years Experience</div>
+    <div class="badge-divider"></div>
+    <div class="badge-num">CSWP</div>
+    <div class="badge-label">Certified</div>
+    <div class="badge-divider"></div>
+    <div class="badge-num">SPM</div>
+    <div class="badge-label">Specialist</div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="sec-title">Core Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-icon">🧊</div>
+      <div class="skill-card-title">SolidWorks (CSWP)</div>
+      <div class="skill-card-desc">3D Modelling, Assembly, Drafting, Basic FEA Simulation</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📐</div>
+      <div class="skill-card-title">AutoCAD 2D</div>
+      <div class="skill-card-desc">Drafting, Layouts, Fabrication Drawings, GD&T</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">⚙️</div>
+      <div class="skill-card-title">SPM Design</div>
+      <div class="skill-card-desc">Special Purpose Machine Design & Development</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🔩</div>
+      <div class="skill-card-title">Manufacturing</div>
+      <div class="skill-card-desc">CNC/Conventional Machining, Sheet Metal, Assembly</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">✅</div>
+      <div class="skill-card-title">Quality & Standards</div>
+      <div class="skill-card-desc">ISO 9001, Vernier, Micrometer, CMM Basics, 5-Why</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">📊</div>
+      <div class="skill-card-title">Process & Planning</div>
+      <div class="skill-card-desc">Lean Basics, Tolerance Stack-up, Team Management</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2 class="sec-title">Experience</h2>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-date">Aug 2024 – Present</div>
+      <div>
+        <div class="exp-role">Design Engineer</div>
+        <div class="exp-company">Sri Ganapathy Engineering · Coimbatore</div>
+        <ul class="exp-points">
+          <li>Designed & developed special purpose machines using SolidWorks</li>
+          <li>Created 3D models, assembly drawings & detailed manufacturing drawings</li>
+          <li>Coordinated with production team to ensure design manufacturability</li>
+          <li>Implemented cost-effective design solutions reducing rework</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Sep 2023 – Aug 2024</div>
+      <div>
+        <div class="exp-role">Job Setter / Machine Incharge</div>
+        <div class="exp-company">Vijay Tool Room (P) Ltd · Madurai</div>
+        <ul class="exp-points">
+          <li>Managed machine shop operations, manpower allocation & daily production targets</li>
+          <li>Supervised machining, assembly, and quality inspection of components</li>
+          <li>Implemented process improvements reducing downtime and increasing efficiency</li>
+          <li>Trained and guided operators for safe and effective machine handling</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Nov 2020 – Sep 2023</div>
+      <div>
+        <div class="exp-role">NEEM Trainee — Machine Operator</div>
+        <div class="exp-company">TVS Sundaram Fastners Ltd · Krishnapuram, Aviyur</div>
+        <ul class="exp-points">
+          <li>Operated CNC & conventional machines; monitored production quality</li>
+          <li>Built strong foundation in machining processes and maintenance activities</li>
+          <li>Followed safety standards and production schedules consistently</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <h2 class="sec-title">Certifications</h2>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <div class="cert-badge">CERTIFIED</div>
+      <div class="cert-name">Certified SolidWorks Professional (CSWP)</div>
+      <div class="cert-org">Dassault Systèmes · Sep – Nov 2024</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">CERTIFIED</div>
+      <div class="cert-name">AutoCAD 2D</div>
+      <div class="cert-org">GD Advanced Manufacturing Training Centre · Sep – Oct 2024</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">CERTIFIED</div>
+      <div class="cert-name">MS Office Package (Excel, Word, PowerPoint)</div>
+      <div class="cert-org">Professional Certification</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <h2 class="sec-title">Education</h2>
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-year">2020 – 2023</div>
+      <div>
+        <div class="edu-degree">Bachelor of Vocational — Automobile Engineering</div>
+        <div class="edu-inst">Indira Gandhi Technological & Medical Science University</div>
+        <div class="edu-score">75% · First Class</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2014 – 2017</div>
+      <div>
+        <div class="edu-degree">Diploma in Mechanical Engineering</div>
+        <div class="edu-inst">N.A. Manjammal Polytechnic College, Rajapalayam</div>
+        <div class="edu-score">73% · First Class</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2012 – 2014</div>
+      <div>
+        <div class="edu-degree">SSLC</div>
+        <div class="edu-inst">G.S. Hindu Higher Secondary School, Srivilliputtur</div>
+        <div class="edu-score">Completed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="sec-title">Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-block">
+      <h3>Let's Connect</h3>
+      <p>Available for full-time roles in India and open to relocation for Germany & Netherlands opportunities.</p>
+      <div class="contact-links">
+        <a href="mailto:duraipandi9699@gmail.com" class="contact-link">
+          <span class="contact-icon">✉️</span>
+          duraipandi9699@gmail.com
+        </a>
+        <a href="tel:+917373551258" class="contact-link">
+          <span class="contact-icon">📞</span>
+          +91 73735 51258
+        </a>
+        <a href="https://www.linkedin.com/in/duraipandi-design" target="_blank" class="contact-link">
+          <span class="contact-icon">🔗</span>
+          linkedin.com/in/duraipandi-design
+        </a>
+      </div>
+    </div>
+    <div class="contact-block">
+      <h3>Work Availability</h3>
+      <div class="location-note" style="margin-bottom:12px;">
+        <strong>🇮🇳 India (Immediate)</strong>
+        Coimbatore & surrounding regions. Open to relocation within India.
+      </div>
+      <div class="location-note" style="background:#f0fff4; border-color:#a8d5b5; color:#1a6633;">
+        <strong>🇩🇪 Germany · 🇳🇱 Netherlands (Open)</strong>
+        Available for skilled worker visa sponsorship roles in mechanical design, SPM, and product development engineering.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Durai Pandi C · Design Engineer · Coimbatore, India
+</footer>
+
+</body>
+</html>
